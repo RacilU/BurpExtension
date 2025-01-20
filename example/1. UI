@@ -1,0 +1,15 @@
+from burp import IBurpExtender
+from burp import ITab
+from javax.swing import JPanel
+
+class BurpExtender(IBurpExtender, ITab):
+    def registerExtenderCallbacks(self, callbacks):
+        self._callbacks = callbacks
+        self._helpers = callbacks.getHelpers()
+        callbacks.addSuiteTab(self)
+        
+    def getTabCaption(self):
+        return "Tab Name"
+        
+    def getUiComponent(self):
+        return JPanel()
