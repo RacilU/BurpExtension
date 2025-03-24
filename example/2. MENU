@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+
+from burp import IBurpExtender, IContextMenuFactory
+from javax.swing import JPanel, JMenuItem
+
+class BurpExtender(IBurpExtender, IContextMenuFactory):
+    def registerExtenderCallbacks(self, callbacks):
+        self.callbacks = callbacks
+        self.helpers = callbacks.getHelpers()
+        callbacks.setExtensionName("TEST") # Extension Name
+        callbacks.registerContextMenuFactory(self)        
+        
+    def createMenuItems(self, invocation): 
+        label = "Menu Test"      
+        menuItem = JMenuItem(label1, actionPerformed = self.actionTest)
+                
+        return([menuItem])
+        
+    def actionTest(self) :
+        print('RacilU') # 메뉴 클릭 시 동작 지정
