@@ -12,7 +12,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
         
     def createMenuItems(self, invocation): 
         label = "Menu Test"      
-        menuItem = JMenuItem(label1, actionPerformed = self.actionTest)
+        menuItem = JMenuItem(label, actionPerformed = self.actionTest)
                 
         return([menuItem])
         
