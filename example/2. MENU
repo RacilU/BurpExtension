@@ -16,5 +16,5 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
                 
         return([menuItem])
         
-    def actionTest(self) :
+    def actionTest(self, event) :
         print('RacilU') # 메뉴 클릭 시 동작 지정
