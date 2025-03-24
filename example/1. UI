@@ -4,8 +4,8 @@ from javax.swing import JPanel
 
 class BurpExtender(IBurpExtender, ITab):
     def registerExtenderCallbacks(self, callbacks):
-        self._callbacks = callbacks
-        self._helpers = callbacks.getHelpers()
+        self.callbacks = callbacks
+        self.helpers = callbacks.getHelpers()
         callbacks.addSuiteTab(self)
         
     def getTabCaption(self):
