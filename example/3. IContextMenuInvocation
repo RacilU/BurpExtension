@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+
+from burp import IBurpExtender, IContextMenuFactory
+from javax.swing import JMenuItem
+
+class BurpExtender(IBurpExtender, IContextMenuFactory):
+    def registerExtenderCallbacks(self, callbacks):
+        self.callbacks = callbacks
+        self.helpers = callbacks.getHelpers()
+        callbacks.setExtensionName("Insert Header") # Extension Name
+        callbacks.registerContextMenuFactory(self)        
+        
+    def createMenuItems(self, invocation):
+    
+        if invocation.getInvocationContext() == invocation.CONTEXT_MESSAGE_EDITOR_REQUEST :
+            label = "Insert Header"            
+            menu = JMenuItem(label, actionPerformed = lambda x : self.insertHeader(invocation))
+                    
+            return([menu])
+            
+    def insertHeader(self, invocation) :
+        req = invocation.getSelectedMessages()[0]
+        reqInfo = self.helpers.analyzeRequest(req.getRequest())
+        body = u""
+        
+        headers = reqInfo.getHeaders()
+        params = reqInfo.getParameters()
+        
+        headers.add("MadeBy: RacilU")
+            
+        for i in params :
+            if i.getType() == i.PARAM_BODY :
+                if body == u"" :
+                    body = i.getName()+u"="+i.getValue()
+                else :
+                    body = body + u"&" + i.getName()+u"="+i.getValue()                    
+            
+        insertReq = self.helpers.buildHttpMessage(headers, body)
+        req.setRequest(insertReq)
