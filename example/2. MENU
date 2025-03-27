@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from burp import IBurpExtender, IContextMenuFactory
-from javax.swing import JPanel, JMenuItem
+from javax.swing import JMenuItem
 
 class BurpExtender(IBurpExtender, IContextMenuFactory):
     def registerExtenderCallbacks(self, callbacks):
